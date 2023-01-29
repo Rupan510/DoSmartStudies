@@ -1,0 +1,23 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dosmartstudy-staging-170321-authRole",
+      "UnauthRoleArn": "arn:aws:iam::785629213059:role/amplify-dosmartstudy-staging-170321-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::785629213059:role/amplify-dosmartstudy-staging-170321-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-dosmartstudy-staging-170321-deployment",
+      "UnauthRoleName": "amplify-dosmartstudy-staging-170321-unauthRole",
+      "StackName": "amplify-dosmartstudy-staging-170321",
+      "StackId": "arn:aws:cloudformation:ap-south-1:785629213059:stack/amplify-dosmartstudy-staging-170321/1ed26d60-4274-11ed-b34a-02057daf2dfa",
+      "AmplifyAppId": "d3astx8m4l8osi"
+    },
+    "categories": {
+      "auth": {
+        "doSmartStudy": {}
+      },
+      "storage": {
+        "s3dosmartstudystorage794d0813": {}
+      }
+    }
+  }
+}

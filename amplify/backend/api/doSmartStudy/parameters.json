@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "doSmartStudy",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authdoSmartStudy",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2022-10-13T06:20:28.832Z"
+}

@@ -1,0 +1,95 @@
+type Likes @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  Notes: [Notes] @hasMany(indexName: "byLikes", fields: ["id"])
+  Comments: [Comments] @hasMany(indexName: "byLikes", fields: ["id"])
+}
+
+type Comments @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  comment: String
+  Notes: [Notes] @hasMany(indexName: "byComments", fields: ["id"])
+  likesID: ID @index(name: "byLikes")
+}
+
+type Todo @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  start: Int
+  end: Int
+  subjectID: ID @index(name: "bySubject")
+  topicID: ID @index(name: "byTopic")
+  chapterID: ID @index(name: "byChapter")
+  userID: ID @index(name: "byUser")
+  status: Boolean
+}
+
+type Timer @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  start: Int
+  end: Int
+  Users: [User] @hasMany(indexName: "byTimer", fields: ["id"])
+}
+
+type Pomodoro @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID
+  start: Int
+  end: Int
+  Users: [User] @hasMany(indexName: "byPomodoro", fields: ["id"])
+}
+
+type Subject @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  subjectName: String
+  status: Boolean
+  Users: [User] @hasMany(indexName: "bySubject", fields: ["id"])
+  Notes: [Notes] @hasMany(indexName: "bySubject", fields: ["id"])
+  Todos: [Todo] @hasMany(indexName: "bySubject", fields: ["id"])
+  Chapters: [Chapter] @hasMany(indexName: "bySubject", fields: ["id"])
+}
+
+type Topic @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  topicName: String
+  status: Boolean
+  Notes: [Notes] @hasMany(indexName: "byTopic", fields: ["id"])
+  Todos: [Todo] @hasMany(indexName: "byTopic", fields: ["id"])
+  chapterID: ID @index(name: "byChapter")
+}
+
+type Chapter @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  chapterName: String
+  status: Boolean
+  Notes: [Notes] @hasMany(indexName: "byChapter", fields: ["id"])
+  Todos: [Todo] @hasMany(indexName: "byChapter", fields: ["id"])
+  subjectID: ID @index(name: "bySubject")
+  Topics: [Topic] @hasMany(indexName: "byChapter", fields: ["id"])
+}
+
+type Notes @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}, {allow: owner}]) {
+  id: ID!
+  description: String
+  notesImage: String
+  userID: ID @index(name: "byUser")
+  chapterID: ID @index(name: "byChapter")
+  topicID: ID @index(name: "byTopic")
+  subjectID: ID @index(name: "bySubject")
+  commentsID: ID @index(name: "byComments")
+  likesID: ID @index(name: "byLikes")
+}
+
+type User @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  firstName: String
+  lastName: String
+  gender: String
+  profilePicture: String
+  examDetails: String
+  examDates: String
+  Notes: [Notes] @hasMany(indexName: "byUser", fields: ["id"])
+  subjectID: ID @index(name: "bySubject")
+  pomodoroID: ID @index(name: "byPomodoro")
+  timerID: ID @index(name: "byTimer")
+  Todos: [Todo] @hasMany(indexName: "byUser", fields: ["id"])
+  username: String
+}
+ 

@@ -1,0 +1,10 @@
+{
+  "links": [
+    { "link": "/home", "label": "Home" },
+    { "link": "/preparation", "label": "Preparation" },
+    { "link": "./Syllabus", "label": "Syllabus" },
+    { "link": "./Timer", "label": "Timer" },
+    { "link": "./Analytics", "label": "Analytics" },
+    { "link": "./Profile", "label": "Profile" }
+  ]
+}
