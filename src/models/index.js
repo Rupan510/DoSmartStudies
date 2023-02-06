@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 
 
-const { Likes, Notes, Comments, Todo, Timer, User, Pomodoro, Subject, Chapter, Topic } = initSchema(schema);
+const { Likes, Notes, Comments, Todo, Timer, UserProfile, Pomodoro, Subject, Topic, Chapter } = initSchema(schema);
 
 export {
   Likes,
@@ -12,9 +12,9 @@ export {
   Comments,
   Todo,
   Timer,
-  User,
+  UserProfile,
   Pomodoro,
   Subject,
-  Chapter,
-  Topic
+  Topic,
+  Chapter
 };

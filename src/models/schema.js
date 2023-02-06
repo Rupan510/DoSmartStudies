@@ -120,7 +120,7 @@ export const schema = {
                     "name": "userID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "chapterID": {
@@ -185,7 +185,7 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byUser",
+                        "name": "byUserProfile",
                         "fields": [
                             "userID"
                         ]
@@ -419,7 +419,7 @@ export const schema = {
                     "name": "userID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "status": {
@@ -483,7 +483,7 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byUser",
+                        "name": "byUserProfile",
                         "fields": [
                             "userID"
                         ]
@@ -547,7 +547,7 @@ export const schema = {
                     "name": "Users",
                     "isArray": true,
                     "type": {
-                        "model": "User"
+                        "model": "UserProfile"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -611,8 +611,8 @@ export const schema = {
                 }
             ]
         },
-        "User": {
-            "name": "User",
+        "UserProfile": {
+            "name": "UserProfile",
             "fields": {
                 "id": {
                     "name": "id",
@@ -681,21 +681,21 @@ export const schema = {
                     "name": "subjectID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "pomodoroID": {
                     "name": "pomodoroID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "timerID": {
                     "name": "timerID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "Todos": {
@@ -737,7 +737,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Users",
+            "pluralName": "UserProfiles",
             "attributes": [
                 {
                     "type": "model",
@@ -819,7 +819,7 @@ export const schema = {
                     "name": "Users",
                     "isArray": true,
                     "type": {
-                        "model": "User"
+                        "model": "UserProfile"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -911,7 +911,7 @@ export const schema = {
                     "name": "Users",
                     "isArray": true,
                     "type": {
-                        "model": "User"
+                        "model": "UserProfile"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -925,7 +925,7 @@ export const schema = {
                     "name": "Notes",
                     "isArray": true,
                     "type": {
-                        "model": "Notes"
+                        "model": "UserProfile"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -939,7 +939,7 @@ export const schema = {
                     "name": "Todos",
                     "isArray": true,
                     "type": {
-                        "model": "Todo"
+                        "model": "UserProfile"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -953,7 +953,7 @@ export const schema = {
                     "name": "Chapters",
                     "isArray": true,
                     "type": {
-                        "model": "Chapter"
+                        "model": "UserProfile"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -986,6 +986,128 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Topic": {
+            "name": "Topic",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "topicName": {
+                    "name": "topicName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "status": {
+                    "name": "status",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Notes": {
+                    "name": "Notes",
+                    "isArray": true,
+                    "type": {
+                        "model": "Notes"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "topicID"
+                    }
+                },
+                "Todos": {
+                    "name": "Todos",
+                    "isArray": true,
+                    "type": {
+                        "model": "Todo"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "topicID"
+                    }
+                },
+                "chapterID": {
+                    "name": "chapterID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Topics",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byChapter",
+                        "fields": [
+                            "chapterID"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -1152,131 +1274,10 @@ export const schema = {
                     }
                 }
             ]
-        },
-        "Topic": {
-            "name": "Topic",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "topicName": {
-                    "name": "topicName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "status": {
-                    "name": "status",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Notes": {
-                    "name": "Notes",
-                    "isArray": true,
-                    "type": {
-                        "model": "Notes"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "topicID"
-                    }
-                },
-                "Todos": {
-                    "name": "Todos",
-                    "isArray": true,
-                    "type": {
-                        "model": "Todo"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "topicID"
-                    }
-                },
-                "chapterID": {
-                    "name": "chapterID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Topics",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byChapter",
-                        "fields": [
-                            "chapterID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            },
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "identityClaim": "cognito:username",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "version": "b56b171103cd30fde2675c2d514037e5"
+    "codegenVersion": "3.3.5",
+    "version": "497954584db6e65af3b7bc7a4a61c95c"
 };
