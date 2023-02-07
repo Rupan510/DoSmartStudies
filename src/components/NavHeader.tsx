@@ -114,10 +114,13 @@ export function NavHeader() {
       className={cx(classes.link, {
         [classes.linkActive]: active === link.link,
       })}
-      onClick={(e) => {
-        setActive(link.link);
-        // e.preventDefault();
-        close();
+      onClick={() => {
+        try {
+          setActive(link.link);
+          close();
+        } catch (error) {
+          console.log(error);
+        }
       }}>
       {link.label}
     </Link>

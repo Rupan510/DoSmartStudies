@@ -4,7 +4,6 @@ import { Auth } from "aws-amplify";
 import { CognitoUser } from "@aws-amplify/auth";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
-import { loadStripe } from "@stripe/stripe-js";
 import { useStripe } from "@stripe/react-stripe-js";
 
 interface IFormInput {
@@ -18,7 +17,6 @@ interface IFormInput {
 const CreateAccount = () => {
   const [code, setCode] = useState<boolean>(false);
   const stripe = useStripe();
-  const router = useRouter();
   const {
     register,
     formState: { errors },
@@ -47,8 +45,6 @@ const CreateAccount = () => {
       const amplifyUser = await Auth.signIn(username, password);
       console.log("successfully signedIn", amplifyUser);
       if (amplifyUser) {
-        // router.push("/payment");
-
         await stripe?.redirectToCheckout({
           lineItems: [
             {
