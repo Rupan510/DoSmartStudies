@@ -1,11 +1,12 @@
-import { NavHeader } from "@/components/NavHeader";
 import React from "react";
+import TimerUI from "@/components/Timer/TimerUI";
+import NavHeader from "@/components/NavHeader";
 
 const Timer = () => {
   return (
     <div>
       <NavHeader />
-      Timer
+      <TimerUI />
     </div>
   );
 };
